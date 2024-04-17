@@ -2,23 +2,36 @@ import { create } from "zustand";
 
 type GameStore = {
   isGameStarted: boolean;
-  setIsGameStarted: () => void;
+  startGame: () => void;
 };
 
 export const useGame = create<GameStore>((set) => ({
   isGameStarted: false,
-  setIsGameStarted: () => {
+  startGame: () => {
     set({ isGameStarted: true });
   },
 }));
 
+interface QuizItem {
+  type: string;
+  difficulty: string;
+  category: string;
+  question: string;
+  correct_answer: string;
+  incorrect_answers: string[];
+}
+
 type QuizStore = {
-  quizItems: [];
+  quizItems: QuizItem[];
+  type: string;
+  difficulty: string;
   fetchQuizItems: (difficulty: string, type: string) => void;
 };
 
 export const useQuiz = create<QuizStore>((set) => ({
   quizItems: [],
+  type: "",
+  difficulty: "",
   fetchQuizItems: async (difficulty, type) => {
     try {
       const response = await fetch(
@@ -30,7 +43,7 @@ export const useQuiz = create<QuizStore>((set) => ({
         console.log("404");
       }
 
-      set({ quizItems: data.results });
+      set({ quizItems: data.results, type: type, difficulty: difficulty });
     } catch (error) {
       console.log(error);
     }

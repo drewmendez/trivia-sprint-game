@@ -1,4 +1,4 @@
-import { useGame, useQuiz } from "../store/gameStore";
+import { useGame, useQuiz } from "../../store";
 
 type Prop = {
   difficulty: string;
@@ -6,11 +6,11 @@ type Prop = {
 };
 
 export default function CategoryButton({ difficulty, type }: Prop) {
-  const setIsGameStarted = useGame((state) => state.setIsGameStarted);
+  const startGame = useGame((state) => state.startGame);
   const fetchQuizItems = useQuiz((state) => state.fetchQuizItems);
 
   const handleClick = () => {
-    setIsGameStarted();
+    startGame();
     fetchQuizItems(difficulty, type);
   };
 

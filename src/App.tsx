@@ -1,7 +1,7 @@
-import CategoryView from "./components/CategoryView";
+import CategoryView from "./components/CategoryView/CategoryView";
 import Header from "./components/Header";
-import Quiz from "./components/Quiz";
-import { useGame } from "./store/gameStore";
+import Quiz from "./components/Quiz/Quiz";
+import { useGame } from "./store";
 
 function App() {
   const isGameStarted = useGame((state) => state.isGameStarted);
