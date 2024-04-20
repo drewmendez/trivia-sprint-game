@@ -35,12 +35,13 @@ export const useQuiz = create<QuizStore>((set) => ({
   fetchQuizItems: async (difficulty, type) => {
     try {
       const response = await fetch(
-        `https://opentdb.com/api.php?amount=10&difficulty=${difficulty}&type=${type}`,
+        `https://opentdb.com/api.php?amount=10&${type === "boolean" ? "" : "category=9"}&difficulty=${difficulty}&type=${type}`,
       );
       const data = await response.json();
 
       if (!response.ok) {
         console.log("404");
+        return;
       }
 
       set({ quizItems: data.results, type: type, difficulty: difficulty });
