@@ -74,7 +74,16 @@ export default function Game() {
       (event.target as Element).classList.add("bg-green-500");
       (event.target as Element).classList.add("border-green-500");
 
-      setScore(score + 200);
+      setScore((prev) => prev + 200);
+      if (timeLeft >= 11) {
+        setTimeout(() => {
+          setScore((prev) => prev + 120);
+        }, 1000);
+      } else if (timeLeft >= 6 && timeLeft <= 10) {
+        setTimeout(() => {
+          setScore((prev) => prev + 60);
+        }, 1000);
+      }
     } else {
       (event.target as Element).classList.remove("bg-slate-200");
       (event.target as Element).classList.add("bg-red-500");
