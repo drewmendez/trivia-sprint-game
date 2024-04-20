@@ -7,5 +7,10 @@ export const replaceEntities = (str: string) => {
     .replace(/&oacute;/gi, "ó")
     .replace(/&iacute;/gi, "í")
     .replace(/&aacute;/gi, "á")
-    .replace(/&ouml;/gi, "ö");
+    .replace(/&ouml;/gi, "ö")
+    .replace(/&lrm;/gi, "")
+    .replace(/&ldquo;/gi, "“")
+    .replace(/&rdquo;/gi, "”")
+    .replace(/&hellip;/gi, "...")
+    .replace(/&deg;/gi, "°");
 };
