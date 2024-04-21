@@ -18,6 +18,7 @@ export default function Game() {
   );
 
   const [score, setScore] = useState(0);
+  const [speedBonus, setSpeedBonus] = useState(0);
   const [timeLeft, setTimeLeft] = useState(15);
 
   let timer: number;
@@ -73,21 +74,33 @@ export default function Game() {
       (event.target as Element).classList.remove("bg-slate-200");
       (event.target as Element).classList.add("bg-green-500");
       (event.target as Element).classList.add("border-green-500");
+      (event.target as Element).classList.add("text-white");
 
       setScore((prev) => prev + 200);
+
       if (timeLeft >= 11) {
         setTimeout(() => {
+          setSpeedBonus(120);
+        }, 500);
+        setTimeout(() => {
           setScore((prev) => prev + 120);
-        }, 1000);
+        }, 1300);
       } else if (timeLeft >= 6 && timeLeft <= 10) {
         setTimeout(() => {
+          setSpeedBonus(60);
+        }, 500);
+        setTimeout(() => {
           setScore((prev) => prev + 60);
-        }, 1000);
+        }, 1300);
       }
+      setTimeout(() => {
+        setSpeedBonus(0);
+      }, 1500);
     } else {
       (event.target as Element).classList.remove("bg-slate-200");
       (event.target as Element).classList.add("bg-red-500");
       (event.target as Element).classList.add("border-red-500");
+      (event.target as Element).classList.add("text-white");
 
       revealAnswer();
     }
@@ -107,6 +120,7 @@ export default function Game() {
       btn.classList.remove("border-green-500");
       btn.classList.remove("bg-red-500");
       btn.classList.remove("border-red-500");
+      btn.classList.remove("text-white");
       btn.classList.add("bg-slate-200");
     });
   };
@@ -117,16 +131,17 @@ export default function Game() {
         questionNumber={itemIndex + 1}
         timeLeft={timeLeft}
         score={score}
+        speedBonus={speedBonus}
       />
 
-      <div className="flex min-h-28 items-center justify-center">
-        <p className="text-center text-xl font-medium">{question}</p>
+      <div className="flex min-h-48 items-center justify-center">
+        <p className="text-center text-2xl font-medium">{question}</p>
       </div>
 
-      <div className="mb-4 grid gap-4">
+      <div className="mb-6 grid gap-4 md:grid-cols-2">
         {choices.map((choice, index) => (
           <button
-            className="btn rounded-md border-2 bg-slate-200 px-4 py-2 shadow-md transition-colors"
+            className="btn rounded-md border-2 bg-slate-200 px-4 py-2 font-semibold shadow-md transition-colors"
             key={index}
             onClick={(event) => handleAnswer(event, choice)}
             disabled={didAnswer}
@@ -136,13 +151,12 @@ export default function Game() {
         ))}
       </div>
 
-      <p dangerouslySetInnerHTML={{ __html: "&lrm;" }} />
-
-      {didAnswer ? (
-        <button className="bg-green-500 px-4 py-2" onClick={handleNext}>
-          next
-        </button>
-      ) : null}
+      <button
+        className={`absolute ${didAnswer ? "right-1/2 translate-x-1/2" : "-right-1/2"} rounded bg-green-500 px-10 py-2 text-xl font-medium text-white duration-500`}
+        onClick={handleNext}
+      >
+        Next
+      </button>
     </>
   );
 }

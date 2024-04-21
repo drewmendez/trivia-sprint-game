@@ -6,7 +6,7 @@ export default function Quiz() {
   const [isPlay, setIsPlay] = useState(false);
 
   return (
-    <main className="mx-auto min-h-dvh max-w-[500px] px-4 pt-28">
+    <main className="relative mx-auto min-h-dvh max-w-[816px] overflow-hidden px-4 pt-28">
       {isPlay ? <Game /> : <QuizPreStart setIsPlay={setIsPlay} />}
     </main>
   );

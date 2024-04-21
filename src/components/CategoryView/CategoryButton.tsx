@@ -16,7 +16,7 @@ export default function CategoryButton({ difficulty, type }: Prop) {
 
   return (
     <button
-      className="bg-white px-8 py-1 text-xl font-medium capitalize"
+      className="rounded bg-white px-8 py-2 text-xl font-medium capitalize duration-150 hover:opacity-80"
       onClick={handleClick}
     >
       {difficulty}
