@@ -1,11 +1,7 @@
-import { useQuiz } from "../../store";
+import { useGame, useQuiz } from "../../store";
 import ClipLoader from "react-spinners/ClipLoader";
 
-interface QuizPreStartProp {
-  setIsPlay: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export default function QuizPreStart({ setIsPlay }: QuizPreStartProp) {
+export default function QuizPreStart() {
   const type = useQuiz((state) => state.type);
   const difficulty = useQuiz((state) => state.difficulty);
 
@@ -14,7 +10,7 @@ export default function QuizPreStart({ setIsPlay }: QuizPreStartProp) {
       {type === "" ? (
         <Loading />
       ) : (
-        <Content type={type} difficulty={difficulty} setIsPlay={setIsPlay} />
+        <Content type={type} difficulty={difficulty} />
       )}
     </>
   );
@@ -48,10 +44,11 @@ function Loading() {
 interface ContentProp {
   type: string;
   difficulty: string;
-  setIsPlay: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Content({ type, difficulty, setIsPlay }: ContentProp) {
+function Content({ type, difficulty }: ContentProp) {
+  const startPlay = useGame((state) => state.startPlay);
+
   return (
     <>
       <h2 className="mb-4 mt-4 text-center text-2xl font-bold">
@@ -62,12 +59,13 @@ function Content({ type, difficulty, setIsPlay }: ContentProp) {
       </p>
       <p className="mb-7 mt-2">
         You'll have 15 seconds to answer each question. The faster you answer,
-        the higher your score. <span className="font-bold">GOODLUCK!</span>
+        the higher your score.{" "}
+        <span className="text-xl font-bold">GOODLUCK! 😄</span>
       </p>
       <div className="flex justify-center">
         <button
           className="text-bold w-1/4 rounded-md bg-slate-800 px-4 py-2 font-bold text-white duration-150 hover:scale-110 active:scale-90"
-          onClick={() => setIsPlay(true)}
+          onClick={() => startPlay()}
         >
           Start
         </button>

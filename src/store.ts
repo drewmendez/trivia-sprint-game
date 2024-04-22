@@ -2,13 +2,27 @@ import { create } from "zustand";
 
 type GameStore = {
   isGameStarted: boolean;
+  isPlay: boolean;
   startGame: () => void;
+  endGame: () => void;
+  startPlay: () => void;
+  endPlay: () => void;
 };
 
 export const useGame = create<GameStore>((set) => ({
   isGameStarted: false,
+  isPlay: false,
   startGame: () => {
     set({ isGameStarted: true });
+  },
+  endGame: () => {
+    set({ isGameStarted: false });
+  },
+  startPlay: () => {
+    set({ isPlay: true });
+  },
+  endPlay: () => {
+    set({ isPlay: false });
   },
 }));
 
